@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { Header } from "./Components/Header/Header";
+import { ProjectList } from "./Components/Table/Table";
+import { ProjectContext } from "./Contexts/ProjectContext";
+import { Project } from "./types/project";
 
 function App() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const columns = ["Name", "Type", "Status", "Created", "Manage"];
+
+  useEffect(() => {
+    fetch("http://localhost:3001/projects")
+      .then((res) => res.json())
+      .then((json: Project[]) => setProjects(json))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header name="Welson" />
+      <ProjectContext.Provider value={{ projects, setProjects }}>
+        {projects && <ProjectList columns={columns} />}
+      </ProjectContext.Provider>
     </div>
   );
 }
