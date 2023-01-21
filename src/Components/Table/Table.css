@@ -51,12 +51,6 @@ select option {
   color: black;
 }
 
-.search {
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1.15rem;
-  margin-bottom: 1rem;
-  background: transparent;
-  border: 2px solid var(--background);
-  color: var(--color);
+.project-status {
+  text-transform: capitalize;
 }

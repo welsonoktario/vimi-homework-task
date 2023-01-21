@@ -1,10 +1,12 @@
-import { createContext, Dispatch, ReactNode, useState } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 import { Project } from "../types/project";
 
 export const ProjectContext = createContext<{
   projects: Project[];
-  setProjects: Dispatch<React.SetStateAction<Project[]>>;
+  filteredProjects: Project[];
+  setFilteredProjects: Dispatch<SetStateAction<Project[]>>;
 }>({
   projects: [] as Project[],
-  setProjects: () => {},
+  filteredProjects: [] as Project[],
+  setFilteredProjects: () => {},
 });

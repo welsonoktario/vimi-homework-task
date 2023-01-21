@@ -4,9 +4,11 @@
   --background: rgb(222, 218, 251);
   --background-transparent: rgba(238, 245, 219, 0.5);
   --color: black;
+  --bg-surface: rgb(199, 195, 231);
 }
 
 body {
+  margin: 0;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -47,6 +49,7 @@ h4 {
     --background: rgb(13, 2, 75);
     --background-transparent: rgba(9, 2, 33, 0.5);
     --color: white;
+    --bg-surface: rgb(44, 24, 153);
   }
 
   body {
