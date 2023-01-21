@@ -1,9 +1,9 @@
 export enum ProjectStatus {
-  "INCOMPLETE" = "Form Incomplete",
-  "SHOOTING" = "Shoot Scheduled",
-  "EDITING" = "Video Editing",
-  "FEEDBACK" = "Waiting for Feedback",
-  "COMPLETED" = "Completed",
+  INCOMPLETE = "incomplete",
+  SHOOTING = "shooting",
+  EDITING = "editing",
+  FEEDBACK = "feedback",
+  COMPLETED = "completed",
 }
 
 export enum ProjectType {
@@ -17,7 +17,7 @@ export type Project = {
   id: string;
   name: string;
   status: ProjectStatus;
-  type: string;
+  type: ProjectType;
   createdOn: string;
   archived: boolean;
 };

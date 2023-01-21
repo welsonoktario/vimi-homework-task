@@ -1,5 +1,5 @@
 import "./Table.css";
-import { Project } from "../../types/project";
+import { Project, ProjectStatus, ProjectType } from "../../types/project";
 import { dateStringToHumanReadable } from "../../lib/utils/dateUtils";
 import { ChangeEvent, useContext, useState } from "react";
 import { ProjectContext } from "../../Contexts/ProjectContext";
@@ -40,6 +40,55 @@ export const ProjectList = ({ columns }: ProjectListProps) => {
     setProjects(newProjects);
   };
 
+  const handleSearch = () => {
+    const queries = query.split(" ");
+    let newProjects = projects.slice();
+
+    if (!query) {
+      return setProjects(projects);
+    }
+
+    const projectTypes: string[] = Object.values(ProjectType);
+    const projectStatus: string[] = Object.values(ProjectStatus);
+    console.log(projectStatus);
+
+    queries.forEach((q) => {
+      if (q.includes("is:")) {
+        const filter = q.split(":")[1];
+        console.log(projectTypes.includes(filter));
+        console.log(projectStatus.includes(filter));
+
+        newProjects = newProjects.filter((project) => {
+          if (projectTypes.includes(filter)) {
+            return project.type.toString() == filter;
+          }
+
+          if (projectStatus.includes(filter)) {
+            return project.status.toString() == filter;
+          }
+        });
+      }
+
+      if (q.includes("after:")) {
+        const filter = q.split(":")[1];
+
+        newProjects.filter((project) => {
+          const date = new Date(filter);
+
+          return new Date(project.createdOn) > date;
+        });
+      }
+
+      if (q) {
+        newProjects = newProjects.filter((project) =>
+          project.name.toLowerCase().includes(q.toLowerCase())
+        );
+      }
+    });
+
+    setProjects(newProjects);
+  };
+
   return (
     <div className="project-list-wrapper">
       <div className="inner-header">
@@ -58,6 +107,8 @@ export const ProjectList = ({ columns }: ProjectListProps) => {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search..."
       />
+
+      <button onClick={handleSearch}>Search</button>
 
       <div className="grid project-list-header">
         {columns.map((column) => (
